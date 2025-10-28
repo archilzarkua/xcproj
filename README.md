@@ -1,75 +1,26 @@
-## About
+CRUSH GAME v3 — Full Prototype (Landscape, UIKit Shop, Firebase-safe, Programmatic VFX)
+=====================================================================================
 
-**xcproj** is a command line tool for manipulating Xcode project files. It doesn’t do much yet. It also serves as a testbed for [XCDUndocumentedChecker](https://github.com/0xced/xcproj/blob/develop/Sources/XCDUndocumentedChecker.m).
+What's included:
+- AppDelegate.swift (Firebase-safe initialization)
+- GameViewController.swift (landscape)
+- GameScene.swift (gameplay; programmatic particles for crash/smoke)
+- ShopViewController.swift (UIKit shop + purchases working with local profile)
+- FirebaseManager.swift (uses Firebase if GoogleService-Info.plist provided; otherwise mock)
+- AdsManager.swift (AdMob scaffold using test IDs; SDK integration required)
+- Assets placeholder list and instructions
+- Updated guides and how-to-run steps
 
-## Requirements
+Important notes:
+- Add your GoogleService-Info.plist file to the Xcode project root to enable Firebase features.
+- Add AdMob App ID in Info.plist and integrate GoogleMobileAds SDK to enable rewarded ads.
+- This prototype uses test AdMob IDs and will gracefully degrade if dependencies are missing.
 
-xcproj works with Xcode 5 and 6. Xcode 4 support has been discontinued.
+How to preview:
+1. Open Xcode -> New Game -> SpriteKit (Swift).
+2. Add these Swift files to the project, replace default ones.
+3. In Project Settings -> Deployment Info -> check Landscape orientations only.
+4. Add placeholder images to Assets.xcassets with names used in the code.
+5. Build & Run in simulator or device.
 
-## Installation
-
-### Homebrew
-
-```
-brew install xcproj
-```
-
-### Manually
-
-To install the `xcproj` tool in `/usr/local/bin` run the following command, with `sudo` if required:
-
-```
-xcodebuild -target xcproj install DSTROOT=/
-```
-
-If you want to install `xcproj` in a custom location, e.g. `~/bin`, run the following command:
-
-```
-xcodebuild -target xcproj install DSTROOT=/ INSTALL_PATH=~/bin
-```
-
-## Usage
-
-```
-xcproj [options] <action> [arguments]
-
-Options:
- -h, --help        Show this help text and exit
- -V, --version     Show program version and exit
- -p, --project     Path to an Xcode project (*.xcodeproj file). If not specified, the project in the current working directory is used 
- -t, --target      Name of the target. If not specified, the first target is used
-
-Actions:
- * list-targets
-     List all the targets in the project
-
- * list-headers [All|Public|Project|Private] (default=Public)
-     List headers from the `Copy Headers` build phase
-
- * read-build-setting <build_setting>
-     Evaluate a build setting and print its value. If the build setting does not exist, nothing is printed
-
- * write-build-setting <build_setting> <value>
-     Assign a value to a build setting. If the build setting does not exist, it is added to the target
-
- * add-xcconfig <xcconfig_path>
-     Add an xcconfig file to the project and base all configurations on it
-
- * add-resources-bundle <bundle_path>
-     Add a bundle to the project and in the `Copy Bundle Resources` build phase
-
- * touch
-     Rewrite the project file
-```
-
-## Limitations
-
-* **xcproj** relies on the DevToolsCore private framework. Although great care has been taken, it might stop working when you upgrade Xcode.
-
-## Contact
-
-Cédric Luthi
-
-- http://github.com/0xced
-- http://twitter.com/0xced
-- cedric.luthi@gmail.com
+If you want, paste your GoogleService-Info.plist here (or upload) and I will integrate and test code paths that call Firebase. For security, do not paste public keys in chat; instead upload the file via the app file upload feature if you want me to include it in the package.

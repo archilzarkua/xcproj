@@ -1,0 +1,14 @@
+Add the following images to Assets.xcassets in Xcode:
+- plane_default (png) - default plane
+- plane_skin_1 (png) - alternative skin
+- bg_day (png) - day sky background
+- bg_night (png) - night background
+- spark (png) - small particle texture used by crash emitter
+- btn_start (png) - start button
+- btn_cashout (png) - cashout button
+- icon_shop (png) - shop icon
+
+Also add short sound files (or placeholder empty files):
+- start.wav
+- win.wav
+- crash.wav
