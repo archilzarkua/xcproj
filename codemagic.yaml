@@ -1,0 +1,21 @@
+workflows:
+  ios-simulator-build:
+    name: iOS Simulator Build
+    environment:
+      xcode: 15.4
+    scripts:
+      - name: Build for iOS Simulator
+        script: |
+          SCHEME=$(xcodebuild -list -json | jq -r '.project.schemes[0]')
+          xcodebuild -scheme "$SCHEME" \
+            -sdk iphonesimulator \
+            -configuration Release \
+            -derivedDataPath build
+      - name: Zip .app for Appetize
+        script: |
+          APP_PATH=$(find build/Build/Products/Release-iphonesimulator -name "*.app" | head -n 1)
+          mkdir -p artifacts
+          cd "$(dirname "$APP_PATH")"
+          zip -r ../../../../artifacts/AppetizeBuild.zip "$(basename "$APP_PATH")"
+    artifacts:
+      - artifacts/AppetizeBuild.zip
