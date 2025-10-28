@@ -1,21 +1,17 @@
 workflows:
-  ios-simulator-build:
-    name: iOS Simulator Build
+  macos-cli:
+    name: macOS CLI Build
     environment:
       xcode: 15.4
     scripts:
-      - name: Build for iOS Simulator
+      - name: Build xcproj command-line tool
         script: |
-          SCHEME=$(xcodebuild -list -json | jq -r '.project.schemes[0]')
-          xcodebuild -scheme "$SCHEME" \
-            -sdk iphonesimulator \
-            -configuration Release \
-            -derivedDataPath build
-      - name: Zip .app for Appetize
+          set -e
+          xcodebuild -project xcproj.xcodeproj -scheme xcproj -configuration Release
+      - name: Zip binary
         script: |
-          APP_PATH=$(find build/Build/Products/Release-iphonesimulator -name "*.app" | head -n 1)
           mkdir -p artifacts
-          cd "$(dirname "$APP_PATH")"
-          zip -r ../../../../artifacts/AppetizeBuild.zip "$(basename "$APP_PATH")"
+          find build/Release -type f -perm +111 -exec cp {} artifacts/ \;
+          cd artifacts && zip -r xcproj_build.zip *
     artifacts:
-      - artifacts/AppetizeBuild.zip
+      - artifacts/xcproj_build.zip
